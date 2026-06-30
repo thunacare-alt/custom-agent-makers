@@ -407,6 +407,106 @@
       .about-stat .number { font-size: 1.5rem; }
       footer .container { flex-direction: column; text-align: center; }
     }
+
+  /* ===== SCROLLING RIBBON ===== */
+  .ribbon-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: #1a56db;
+    padding: 14px 0;
+    position: relative;
+    z-index: 10;
+  }
+  .ribbon-track {
+    width: 100%;
+    overflow: hidden;
+  }
+  .ribbon-content {
+    display: flex;
+    gap: 40px;
+    animation: scroll-ribbon 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .ribbon-content span {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .ribbon-content .dot {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.5rem;
+  }
+  @keyframes scroll-ribbon {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ===== 3D HERO ELEMENT ===== */
+  #three-container {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    width: 400px;
+    height: 400px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  @media (max-width: 768px) {
+    #three-container { width: 250px; height: 250px; right: 50%; transform: translate(50%, -50%); }
+  }
+
+  /* ===== MOBILE MENU ANIMATION ===== */
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+    transition: all 0.3s ease;
+  }
+  .mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #1a56db;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  .mobile-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .mobile-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  @media (max-width: 768px) {
+    .mobile-toggle { display: flex; }
+    #navLinks {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 280px; height: 100vh;
+      background: #ffffff;
+      flex-direction: column;
+      padding: 80px 40px 40px;
+      gap: 24px;
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    #navLinks.open { right: 0; }
+    nav { padding: 16px 24px; }
+  }
   </style>
 </head>
 <body>
@@ -441,6 +541,40 @@
   </section>
 
   <!-- Solutions -->
+
+  <!-- ===== SCROLLING RIBBON ===== -->
+  <div class="ribbon-wrap">
+    <div class="ribbon-track">
+      <div class="ribbon-content">
+        <span>CUSTOM AI AGENTS</span>
+        <span class="dot">◆</span>
+        <span>MANUFACTURING ANALYTICS</span>
+        <span class="dot">◆</span>
+        <span>HR INTELLIGENCE</span>
+        <span class="dot">◆</span>
+        <span>ENTERPRISE AUTOMATION</span>
+        <span class="dot">◆</span>
+        <span>CLIMATE ANALYTICS</span>
+        <span class="dot">◆</span>
+        <span>DATA INTELLIGENCE</span>
+        <span class="dot">◆</span>
+        <!-- Duplicate for seamless loop -->
+        <span>CUSTOM AI AGENTS</span>
+        <span class="dot">◆</span>
+        <span>MANUFACTURING ANALYTICS</span>
+        <span class="dot">◆</span>
+        <span>HR INTELLIGENCE</span>
+        <span class="dot">◆</span>
+        <span>ENTERPRISE AUTOMATION</span>
+        <span class="dot">◆</span>
+        <span>CLIMATE ANALYTICS</span>
+        <span class="dot">◆</span>
+        <span>DATA INTELLIGENCE</span>
+        <span class="dot">◆</span>
+      </div>
+    </div>
+  </div>
+
   <section class="solutions-section" id="solutions">
     <div class="container">
       <div class="solutions-header reveal">
@@ -553,7 +687,8 @@
     </div>
   </footer>
 
-  <script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
     (function() {
       'use strict';
 
@@ -630,6 +765,73 @@
         });
       }
     })();
+  </script>
+
+  <script>
+    // ===== 3D ROTATING TORUS KNOT =====
+    (function() {
+      const container = document.getElementById("three-container");
+      if (!container) return;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      camera.position.z = 4;
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(400, 400);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+      const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 128, 16);
+      const material = new THREE.MeshPhysicalMaterial({
+        color: 0x1a56db,
+        metalness: 0.3,
+        roughness: 0.2,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.2,
+        emissive: 0x1a56db,
+        emissiveIntensity: 0.1,
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      const light1 = new THREE.DirectionalLight(0xffffff, 1.5);
+      light1.position.set(2, 3, 4);
+      scene.add(light1);
+      const light2 = new THREE.DirectionalLight(0x059669, 0.5);
+      light2.position.set(-2, -1, 3);
+      scene.add(light2);
+      const ambient = new THREE.AmbientLight(0x404060, 0.5);
+      scene.add(ambient);
+      function animate() {
+        requestAnimationFrame(animate);
+        mesh.rotation.x += 0.005;
+        mesh.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+      function resize() {
+        const w = container.offsetWidth || 400;
+        const h = container.offsetHeight || 400;
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      window.addEventListener("resize", resize);
+      setTimeout(resize, 100);
+    })();
+
+    // ===== MOBILE MENU TOGGLE =====
+    const toggle = document.getElementById("mobileToggle");
+    const navLinks = document.getElementById("navLinks");
+    if (toggle && navLinks) {
+      toggle.addEventListener("click", function() {
+        this.classList.toggle("active");
+        navLinks.classList.toggle("open");
+      });
+      document.querySelectorAll("#navLinks a").forEach(function(link) {
+        link.addEventListener("click", function() {
+          toggle.classList.remove("active");
+          navLinks.classList.remove("open");
+        });
+      });
+    }
   </script>
 </body>
 </html>
