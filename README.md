@@ -1,10 +1,10 @@
-# Enviro Enablers — Premium VFX Landing Page
+# Custom Agent Makers — Premium VFX Landing Page
 
 [![Three.js](https://img.shields.io/badge/Three.js-3D-%2300f0ff)](https://threejs.org)
 [![GSAP](https://img.shields.io/badge/GSAP-Animations-%2300ff88)](https://gsap.com)
 [![License](https://img.shields.io/badge/License-MIT-%237c3aed)](#license)
 
-An immersive, VFX-driven landing page for **Enviro Enablers / Climate Circle** — an enterprise intelligence company that builds custom AI agents, manufacturing analytics, HR intelligence systems, and climate analytics platforms.
+An immersive, VFX-driven landing page for **Custom Agent Makers / Climate Circle** — an enterprise intelligence company that builds custom AI agents, manufacturing analytics, HR intelligence systems, and climate analytics platforms.
 
 > **Live:** [https://thunacare-alt.github.io/custom-agent-makers](https://thunacare-alt.github.io/custom-agent-makers)
 
@@ -12,7 +12,7 @@ An immersive, VFX-driven landing page for **Enviro Enablers / Climate Circle** �
 
 ## ✦ Overview
 
-This site is a premium single-page experience that combines real-time 3D graphics with sophisticated scroll-driven animations. It showcases Enviro Enablers' six solution domains through interactive visual storytelling.
+This site is a premium single-page experience that combines real-time 3D graphics with sophisticated scroll-driven animations. It showcases Custom Agent Makers' six solution domains through interactive visual storytelling.
 
 ![Preview](https://img.shields.io/badge/dynamic/json?color=00f0ff&label=hero&query=.)
 
@@ -95,4 +95,4 @@ MIT — free to use, modify, and adapt.
 
 ---
 
-*Built with ✦ by the Enviro Enablers team*
+*Built with ✦ by the Custom Agent Makers team*
